@@ -46,11 +46,11 @@ url = base_url+public_key+'?private_key='+private_key
 headers = {'Content-type':'application/json', 'Accept':'application/json'}
 
 # wifi parameters
-#WIFI_NET = 'Artisan\'s Asylum'
-#WIFI_PASSWORD = 'learn.make.teach'
+WIFI_NET = 'Artisan\'s Asylum'
+WIFI_PASSWORD = 'learn.make.teach'
 
-WIFI_NET = 'InmanSquareOasis'
-WIFI_PASSWORD = 'portauprince'
+#WIFI_NET = 'InmanSquareOasis'
+#WIFI_PASSWORD = 'portauprince'
 
 
 # function for posting data

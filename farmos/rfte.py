@@ -47,11 +47,10 @@ headers = {'Content-type':'application/json', 'Accept':'application/json'}
 
 # wifi parameters
 #WIFI_NET = 'Artisan\'s Asylum'
-#WIFI_PASSWORD = 'learn.make.teach'
+#WIFI_PASSWORD = 'I won\'t download stuff that will get us in legal trouble.'
 
 WIFI_NET = 'InmanSquareOasis'
 WIFI_PASSWORD = 'portauprince'
-
 
 # function for posting data
 def post_farmos():

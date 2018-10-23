@@ -1,5 +1,5 @@
 import ujson as json
-import ec_urequests as requests
+import urequests as requests
 import time
 import dht
 import machine
@@ -10,7 +10,6 @@ from machine import I2C
 from upy_rfm9x import RFM9x
 
 TIMEOUT = .2
-REQUESTS_TIMEOUT=10000
 import time
 
 #radio
@@ -47,16 +46,15 @@ headers = {'Content-type':'application/json', 'Accept':'application/json'}
 
 # wifi parameters
 #WIFI_NET = 'Artisan\'s Asylum'
-#WIFI_PASSWORD = 'learn.make.teach'
+#WIFI_PASSWORD = 'I won\'t download stuff that will get us in legal trouble.'
 
 WIFI_NET = 'InmanSquareOasis'
 WIFI_PASSWORD = 'portauprince'
 
-
 # function for posting data
 def post_farmos():
     try:
-        r = requests.post(url,data=json.dumps(payload),headers=headers,timeout=REQUESTS_TIMEOUT)
+        r = requests.post(url,data=json.dumps(payload),headers=headers)
     except Exception as e:
         print(e)
         #r.close()
@@ -71,7 +69,7 @@ def post_things(temp,count,light,batt):
         things_url="https://api.thingspeak.com/update?api_key=RV6UP0MRRLGWV4H4"
         my_url=things_url+"&field1="+str(temp)+"&field2="+str(light)+"&field3="+str(batt)+"&field4="+str(count)
         print(my_url)
-        r = requests.post(my_url,timeout=REQUESTS_TIMEOUT)
+        r = requests.post(my_url)
     except Exception as e:
         print(e)
         #r.close()
