@@ -15,13 +15,11 @@ TIMEOUT = .2
 REQUESTS_TIMEOUT=10000
 import time
 
-DISPLAY=False
 
 adc=machine.ADC(Pin(35))
 
 d=dht.DHT22(machine.Pin(18))
 
-i2c = I2C(-1, Pin(14), Pin(2))
 
 #radio
 #sck=Pin(25)
@@ -33,19 +31,17 @@ i2c = I2C(-1, Pin(14), Pin(2))
 #rfm9x = RFM9x(spi, cs, resetNum, 915.0)
 
 # set up the display
-
-if DISPLAY==True:
-    oled = ssd1306.SSD1306_I2C(128, 64, i2c)
+i2c = I2C(-1, Pin(14), Pin(2))
+oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 
 # set up the 'done' pin
 done_pin=Pin(22,Pin.OUT)
 done_pin.value(0)
 
 # indicate that we're starting up
-if DISPLAY==True:
-    oled.fill(0)
-    oled.text("Starting up ...",0,0)
-    oled.show()
+oled.fill(0)
+oled.text("Starting up ...",0,0)
+oled.show()
 
 # set up the DHT22 temp + humidity sensor
 d = dht.DHT22(machine.Pin(18))
@@ -62,11 +58,8 @@ url = base_url+public_key+'?private_key='+private_key
 headers = {'Content-type':'application/json', 'Accept':'application/json'}
 
 # wifi parameters
-#WIFI_NET = 'Artisan\'s Asylum'
-#WIFI_PASSWORD = 'learn.make.teach'
-
-WIFI_NET = 'TP-LINK_4B03'
-WIFI_PASSWORD = '06904722'
+WIFI_NET = 'Artisan\'s Asylum'
+WIFI_PASSWORD = 'learn.make.teach'
 
 #WIFI_NET = 'InmanSquareOasis'
 #WIFI_PASSWORD = 'portauprince'
@@ -127,10 +120,6 @@ while True:
     
     batt=adc.read()
     
-    if DISPLAY==True:
-        oled.text("Measuring ...",0,0)
-        oled.show()
-    
     try:
    
         print(batt,temp,humid)
@@ -139,34 +128,27 @@ while True:
         
         
         # connect to network
-        
-        if DISPLAY==True:
-            oled.fill(0)
-            oled.text("Connecting "+str(index),0,20)
-            oled.show()
-        
-        
+        oled.fill(0)
+        oled.text("Connecting "+str(index),0,20)
+        oled.show()
         do_connect()
 
         # post the data
-        if DISPLAY==True:
-            oled.text("Posting to FarmOS...",0,30)
-            oled.show()
+        oled.text("Posting to FarmOS...",0,30)
+        oled.show()
         print("posting to farmos")
         post_farmos()
         
         time.sleep(3)
         
         print("posting to thingspeak")
-        if DISPLAY==True:
-            oled.text("Posting to Thingspeak.",0,40)
-            oled.show()
+        oled.text("Posting to Thingspeak.",0,40)
+        oled.show()
         post_things(batt,temp,humid)
         
         
-        if DISPLAY==True:
-            oled.text("Posted.",0,50)
-            oled.show()
+        oled.text("Posted.",0,50)
+        oled.show()
         
         index=index+1
         time.sleep(120)
